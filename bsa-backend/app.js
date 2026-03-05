@@ -29,7 +29,7 @@ const PORT = process.env.PORT
 
 connectDB(process.env.MONGO_URI)
   .then(async () => {
-    if (process.env.NODE_ENV ) {
+    if (process.env.NODE_ENV === "development") {
       await seedAdmin();
     }
 
