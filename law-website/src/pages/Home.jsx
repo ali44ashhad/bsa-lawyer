@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AboutSection from "./AboutSection";
 import PracticeGrid from "./PracticeGrid";
@@ -8,11 +9,36 @@ import FAQSection from "./FaqSection";
 import carousel1 from "../assets/home/home1.jpg";
 import carousel2 from "../assets/home/home2.jpg";
 import carousel3 from "../assets/home/home3.jpg";
+import dpdpAd from "../assets/home/company-law.png";
+import internAd from "../assets/home/sports-games.png";
 
-const slides = [carousel1, carousel2, carousel3];
+const slides = [
+  { id: "hero-1", src: carousel1, kind: "hero" },
+  { id: "hero-2", src: carousel2, kind: "hero" },
+  { id: "hero-3", src: carousel3, kind: "hero" },
+  {
+    id: "dpdp-ad",
+    src: dpdpAd,
+    kind: "ad",
+    headline: "DPDP Act Compliance Check",
+    subline: "Know your DPDP risk level in minutes.",
+    ctaLabel: "Go to Risko-meter",
+    to: "/risko-meter",
+  },
+  {
+    id: "intern-ad",
+    src: internAd,
+    kind: "ad",
+    headline: "BSA Internship Program",
+    subline: "Apply for internship and start your legal journey with us.",
+    ctaLabel: "Go to Intern Page",
+    to: "/intern",
+  },
+];
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   const next = useCallback(() => {
     setCurrent((prev) =>
@@ -41,48 +67,68 @@ const Home = () => {
           className="flex h-full transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
-          {slides.map((src, i) => (
+          {slides.map((slide, i) => (
             <div
-              key={i}
+              key={slide.id}
               className="w-full h-full relative flex-shrink-0"
             >
               <img
-                src={src}
+                src={slide.src}
                 alt={`BSA Legal Firm Slide ${i + 1}`}
                 className="w-full h-full object-cover-contain"
               />
 
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/50" />
+
+              {/* ================= Slide Text / CTA ================= */}
+              <div className="absolute inset-0 z-10 flex items-center justify-center text-center px-4 overflow-hidden">
+                {slide.kind === "ad" ? (
+                  <div key={slide.id} className="max-w-3xl animate-slide-in">
+                    <h2 className="garamond-font text-[#D4AF37] font-serif text-2xl sm:text-3xl md:text-5xl italic leading-tight drop-shadow-2xl">
+                      {slide.headline}
+                    </h2>
+                    <p className="mt-4 text-white/90 text-base sm:text-lg md:text-xl drop-shadow">
+                      {slide.subline}
+                    </p>
+                    <div className="mt-6 flex justify-center pointer-events-auto">
+                      <button
+                        type="button"
+                        onClick={() => navigate(slide.to)}
+                        className="bg-[#D4AF37] text-black font-semibold px-6 py-3 rounded-full hover:brightness-95 transition"
+                      >
+                        {slide.ctaLabel}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <h1
+                    key={current}
+                    className="
+                      garamond-font
+                      text-[#D4AF37]
+                      font-serif
+                      text-2xl
+                      sm:text-3xl
+                      md:text-5xl
+                      lg:text-7xl
+                      italic
+                      leading-tight
+                      max-w-6xl
+                      drop-shadow-2xl
+                      animate-slide-in
+                    "
+                  >
+                    Bijender Singh Associates LLP
+                    <br className="hidden sm:block" />
+                    <span className="block sm:inline">
+                      Advocates and Solicitors
+                    </span>
+                  </h1>
+                )}
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* ================= Animated Text Overlay ================= */}
-        <div className="absolute inset-0 flex items-center justify-center text-center px-4 z-10 pointer-events-none overflow-hidden">
-          <h1
-            key={current}
-            className="
-              garamond-font
-              text-[#D4AF37]
-              font-serif
-              text-2xl
-              sm:text-3xl
-              md:text-5xl
-              lg:text-7xl
-              italic
-              leading-tight
-              max-w-6xl
-              drop-shadow-2xl
-              animate-slide-in
-            "
-          >
-            Bijender Singh Associates LLP
-            <br className="hidden sm:block" />
-            <span className="block sm:inline">
-              Advocates and Solicitors
-            </span>
-          </h1>
         </div>
 
         {/* ================= Navigation Buttons ================= */}

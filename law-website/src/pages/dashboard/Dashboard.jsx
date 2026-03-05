@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaShieldHalved, FaUsers, FaBars, FaXmark, FaRightFromBracket } from "react-icons/fa6"; 
+import { FaShieldHalved, FaUsers, FaRightFromBracket } from "react-icons/fa6"; 
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import DPDPComponent from './DPDPComponent';
@@ -7,7 +7,6 @@ import InternComponent from './InternComponent';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dpdp');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -25,19 +24,14 @@ const Dashboard = () => {
           <button onClick={handleLogout} className="text-xl text-red-500">
             <FaRightFromBracket />
           </button>
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-2xl text-[#AA9166]">
-            {isMobileMenuOpen ? <FaXmark /> : <FaBars />}
-          </button>
+        
         </div>
       </div>
 
-      {/* --- Left Sidebar (Fixed width on desktop) --- */}
-      <aside className={`
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
-        md:translate-x-0 fixed md:relative inset-y-0 left-0 z-40
-        w-full md:w-80 bg-black border-r border-[#AA9166]/20 p-6 
-        transition-transform duration-300 ease-in-out flex flex-col
-      `}>
+      {/* --- Left Sidebar (desktop only) --- */}
+      <aside
+        className="hidden md:flex md:flex-col md:relative md:w-80 bg-black border-r border-[#AA9166]/20 p-6 z-40"
+      >
         <div className="hidden md:block mb-10">
           <h1 className="text-2xl font-bold tracking-tight text-gray-400 uppercase text-left">
             ADMIN <span className="text-[#D8B233]">PANEL</span>
@@ -46,7 +40,7 @@ const Dashboard = () => {
 
         <nav className="space-y-4">
           <button
-            onClick={() => { setActiveTab('dpdp'); setIsMobileMenuOpen(false); }}
+            onClick={() => setActiveTab('dpdp')}
             className={`w-full flex items-center gap-4 px-6 py-4 rounded-xl font-bold transition-all border ${
               activeTab === 'dpdp' 
               ? 'bg-[#AA9166] text-black border-[#AA9166]' 
@@ -58,7 +52,7 @@ const Dashboard = () => {
           </button>
 
           <button
-            onClick={() => { setActiveTab('intern'); setIsMobileMenuOpen(false); }}
+            onClick={() => setActiveTab('intern')}
             className={`w-full flex items-center gap-4 px-6 py-4 rounded-xl font-bold transition-all border ${
               activeTab === 'intern' 
               ? 'bg-[#AA9166] text-black border-[#AA9166]' 
@@ -80,7 +74,7 @@ const Dashboard = () => {
         <div className="max-w-6xl mx-auto">
           
           {/* Header Row with Logout on Right */}
-          <div className="flex justify-between items-start mb-12">
+          <div className="flex justify-between items-start mb-6 md:mb-12">
             <div>
               <h2 className="text-sm uppercase tracking-widest text-[#AA9166] font-semibold mb-1">Overview</h2>
               <h3 className="text-3xl font-bold">
@@ -97,6 +91,33 @@ const Dashboard = () => {
               Sign Out
             </button>
             
+          </div>
+
+          {/* Mobile Tab Toggles (inside main area) */}
+          <div className="md:hidden mb-6 flex gap-3">
+            <button
+              onClick={() => setActiveTab('dpdp')}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest border ${
+                activeTab === 'dpdp'
+                  ? 'bg-[#AA9166] text-black border-[#AA9166]'
+                  : 'bg-[#050505] text-gray-400 border-gray-800'
+              }`}
+            >
+              <FaShieldHalved className="text-sm" />
+              DPDP
+            </button>
+
+            <button
+              onClick={() => setActiveTab('intern')}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest border ${
+                activeTab === 'intern'
+                  ? 'bg-[#AA9166] text-black border-[#AA9166]'
+                  : 'bg-[#050505] text-gray-400 border-gray-800'
+              }`}
+            >
+              <FaUsers className="text-sm" />
+              Interns
+            </button>
           </div>
 
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">

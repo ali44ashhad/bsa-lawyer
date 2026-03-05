@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { FaTwitter, FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
 import logo from "../assets/home/logo.png";
 
@@ -81,10 +81,10 @@ const Navbar = () => {
           <div className="bg-[#11161c] text-white flex items-center justify-between px-6 py-3">
             <p className="text-lg tracking-wide">MENU</p>
             <button
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsOpen((prev) => !prev)}
               className="border border-white px-3 py-1 rounded-sm"
             >
-              <Menu size={26} />
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
