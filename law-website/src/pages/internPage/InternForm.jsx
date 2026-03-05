@@ -49,7 +49,7 @@ const InternForm = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5002/api/intern/create-intern",
+        "process.env.Backend_URL/api/intern/create-intern | http://localhost:5002/api/intern/create-intern",
         formData
       );
 

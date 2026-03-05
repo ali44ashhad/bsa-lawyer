@@ -8,7 +8,7 @@ const InternComponent = () => {
     
   useEffect(() => {
     // Handling credentials for secure session/token
-    axios.get('http://localhost:5002/api/intern/getall-interns', { withCredentials: true })
+      axios.get('process.env.Backend_URL/api/intern/getall-interns | http://localhost:5002/api/intern/getall-interns', { withCredentials: true })
       .then(res => {
         const records = res.data.success ? res.data.data : [];
         setState({ data: records, loading: false, error: null });

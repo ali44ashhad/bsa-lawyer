@@ -17,7 +17,7 @@ const DPDPComponent = () => {
     const [expandedField, setExpandedField] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:5002/api/dpdp/getall', { withCredentials: true })
+        axios.get('process.env.Backend_URL/api/dpdp/getall | http://localhost:5002/api/dpdp/getall', { withCredentials: true })
             .then(res => {
                 const records = res.data.success ? res.data.data : [];
                 setState({ items: records, loading: false, error: null });
