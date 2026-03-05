@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import express from "express";
 import dpdpRoutes from "./routes/dpdpRoutes.js";
@@ -11,14 +10,27 @@ import adminRoutes from "./routes/adminRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors(
-  {
-    origin: process.env.FRONTEND_URL,
-    credentials: true,               // Allows the 'Access-Control-Allow-Credentials' header
-    allowedHeaders: ['Content-Type', 'Authorization']
-    
-  }
-));
+
+// Explicit CORS allowlist for frontend
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://bsa-lawyer-72jd.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow server-to-server / tools without origin
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 app.use("/api/admin", adminRoutes);
 app.use("/api/dpdp", dpdpRoutes);
