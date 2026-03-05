@@ -2,22 +2,29 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaGraduationCap, FaEnvelope, FaPhone, FaCalendarAlt, FaMapMarkerAlt, FaUserGraduate } from 'react-icons/fa';
 
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:5002";
+
 const InternComponent = () => {
   const [state, setState] = useState({ data: [], loading: true, error: null });
   const [expandedField, setExpandedField] = useState(null);
     
   useEffect(() => {
     // Handling credentials for secure session/token
-      axios.get('process.env.Backend_URL/api/intern/getall-interns | http://localhost:5002/api/intern/getall-interns', { withCredentials: true })
-      .then(res => {
+    axios
+      .get(`${BACKEND_URL}/api/intern/getall-interns`, { withCredentials: true })
+      .then((res) => {
         const records = res.data.success ? res.data.data : [];
         setState({ data: records, loading: false, error: null });
       })
-      .catch(err => {
-        setState({ 
-          data: [], 
-          loading: false, 
-          error: err.response?.status === 401 ? "Unauthorized: Admin Login Required" : "Intern Database Offline" 
+      .catch((err) => {
+        setState({
+          data: [],
+          loading: false,
+          error:
+            err.response?.status === 401
+              ? "Unauthorized: Admin Login Required"
+              : "Intern Database Offline",
         });
       });
   }, []);

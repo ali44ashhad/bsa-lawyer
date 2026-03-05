@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:5002";
+
 const InternForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -49,7 +52,7 @@ const InternForm = () => {
 
     try {
       const res = await axios.post(
-        "process.env.Backend_URL/api/intern/create-intern | http://localhost:5002/api/intern/create-intern",
+        `${BACKEND_URL}/api/intern/create-intern`,
         formData
       );
 

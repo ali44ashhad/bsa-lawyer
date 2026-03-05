@@ -10,6 +10,9 @@ import {
     FaSearch
 } from "react-icons/fa";
 
+const BACKEND_URL =
+    import.meta.env.VITE_BACKEND_URL || "http://localhost:5002";
+
 const DPDPComponent = () => {
     const [state, setState] = useState({ items: [], loading: true, error: null });
     const [searchTerm, setSearchTerm] = useState(""); // Industry search state
@@ -17,7 +20,7 @@ const DPDPComponent = () => {
     const [expandedField, setExpandedField] = useState(null);
 
     useEffect(() => {
-        axios.get('process.env.Backend_URL/api/dpdp/getall | http://localhost:5002/api/dpdp/getall', { withCredentials: true })
+        axios.get(`${BACKEND_URL}/api/dpdp/getall`, { withCredentials: true })
             .then(res => {
                 const records = res.data.success ? res.data.data : [];
                 setState({ items: records, loading: false, error: null });

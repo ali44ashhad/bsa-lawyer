@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:5002";
+
 const DpdpForm = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
@@ -26,7 +29,10 @@ const DpdpForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("process.env.Backend_URL/api/dpdp/create | http://localhost:5002/api/dpdp/create", formData);
+      const res = await axios.post(
+        `${BACKEND_URL}/api/dpdp/create`,
+        formData
+      );
       if (res.data.success) {
         showPopup("Registration Successful! ✅", "success");
         // ✅ Form submit hote hi gayab ho jayega

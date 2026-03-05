@@ -9,6 +9,9 @@ const AdminLogin = () => {
   const [popup, setPopup] = useState({ show: false, message: "", type: "" });
   const [isError, setIsError] = useState(false); // New state to highlight fields
 
+  const BACKEND_URL =
+    import.meta.env.VITE_BACKEND_URL || "http://localhost:5002";
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (isError) setIsError(false); // Reset error styling when user types again
@@ -25,7 +28,11 @@ const AdminLogin = () => {
     setIsError(false);
 
     try {
-      const res = await axios.post("process.env.Backend_URL/api/admin/login | http://localhost:5002/api/admin/login", formData);
+      const res = await axios.post(
+        `${BACKEND_URL}/api/admin/login`,
+        formData,
+        { withCredentials: true }
+      );
         
       if (res.data.success) {
         localStorage.setItem("adminToken", res.data.token);
