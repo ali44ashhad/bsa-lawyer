@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import connectDB from "../../../config/db.js";
-import { adminLogin } from "../../../controllers/adminController.js";
+import connectDB from "../../config/db.js";
+import { adminLogin } from "../../controllers/adminController.js";
 
 dotenv.config();
 
