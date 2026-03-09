@@ -37,7 +37,7 @@ const Blog = () => {
 
         </div>
 
-        <p className="text-[1vw] font-serif italic font-semibold mb-6 text-gray-900 whitespace-nowrap text-center leading-tight garamond-font">
+        <p className="text-[2.9vw] lg:text-[2vw] font-serif italic font-semibold mb-6 text-gray-900 whitespace-nowrap text-center leading-tight garamond-font">
           A Comprehensive Guide to Legal, Financial, and Ground-Level Barriers</p>
 
         <div className="max-w-6xl mx-auto">
