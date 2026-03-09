@@ -75,7 +75,7 @@ const Home = () => {
               <img
                 src={slide.src}
                 alt={`BSA Legal Firm Slide ${i + 1}`}
-                className="w-full h-full object-cover-contain"
+                className="w-full h-full object-cover"
               />
 
               {/* Dark Overlay */}
